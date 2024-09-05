@@ -16,6 +16,7 @@ void app_main(void)
 {
 int adc_read0;
 int mv_output;
+double lux;
 
 adc_oneshot_unit_handle_t handle = NULL;
 adc_oneshot_unit_init_cfg_t init_config1 = {
@@ -48,6 +49,8 @@ while (1)
     printf("\n\n");
     adc_cali_raw_to_voltage(cali_handle, adc_read0, &mv_output);
     printf("ADC milivolt output %d \n", mv_output);
+    lux = (0.033*adc_read0)-21.926;
+    printf("Lux value=%f\n",lux);
 
     vTaskDelay(500 / portTICK_PERIOD_MS);
 }
